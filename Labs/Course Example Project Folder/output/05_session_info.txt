@@ -13,16 +13,13 @@ time zone: America/Chicago
 tzcode source: internal
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods  
-[7] base     
+[1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
 [1] terra_1.9-27 sf_1.1-2    
 
 loaded via a namespace (and not attached):
- [1] s2_1.1.11          codetools_0.2-20   e1071_1.7-17      
- [4] KernSmooth_2.23-26 classInt_0.4-11    wk_0.9.5          
- [7] grid_4.6.0         DBI_1.3.0          proxy_0.4-29      
-[10] class_7.3-23       compiler_4.6.0     rstudioapi_0.18.0 
-[13] tools_4.6.0        Rcpp_1.1.1-1.1     otel_0.2.0        
-[16] units_1.0-1       
+ [1] s2_1.1.11          codetools_0.2-20   e1071_1.7-17       KernSmooth_2.23-26
+ [5] classInt_0.4-11    wk_0.9.5           grid_4.6.0         DBI_1.3.0         
+ [9] proxy_0.4-29       class_7.3-23       compiler_4.6.0     rstudioapi_0.18.0 
+[13] tools_4.6.0        Rcpp_1.1.1-1.1     otel_0.2.0         units_1.0-1       

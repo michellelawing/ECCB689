@@ -8,14 +8,13 @@ dir.create("output", showWarnings = FALSE)
 out <- function(x) file.path("output", paste0("05_", x))
 occ <- read.csv("data/crotalus_triseriatus_retained_lab3.csv")
 env <- rast("data/crotalus_triseriatus_worldclim_10m.tif")
-env <- env[[c("bio1_c", "bio12_mm")]]
+env <- env[[c("bio1_c", "bio12_mm")]] # select only the predictors that you will use
 occ_sf <- st_as_sf(occ, coords = c("decimalLongitude", "decimalLatitude"),
                    crs = 4326, remove = FALSE)
 
-# Course M from Lab 03 only. Justify a different project's M independently
+# Course M from Lab 03
 # UTM zone 14N and 250 km are not general defaults for other regions/species
-m <- st_transform(st_union(st_buffer(st_transform(occ_sf, 32614),
-                                     dist = 250000)), 4326)
+m <- st_transform(st_union(st_buffer(st_transform(occ_sf, 32614), dist = 250000)), 4326)
 m_env <- project(vect(m), crs(env))
 env_m <- mask(crop(env, m_env), m_env)
 occ_v <- project(vect(occ_sf), crs(env_m))
@@ -30,11 +29,12 @@ print(table(inside_M = inside, complete_predictors = finite))
 if (any(!use)) warning("Investigate failed rows in model_preparation_audit.csv")
 x <- x[use, , drop = FALSE]
 
-# This minimum prevents a trivial fit; it does not establish adequacy
+# This minimum prevents a trivial number of data points
 stopifnot(nrow(x) >= 5)
 
 # Background can overlap occurrence cells: it describes available environments
 # This is grid-cell sampling, not equal-area sampling on a lon/lat grid
+# Each grid can represents a slightly different area
 bg <- spatSample(env_m, size = 1000, method = "random", na.rm = TRUE,
                  as.points = TRUE, values = TRUE)
 b <- as.data.frame(bg)[, names(env_m), drop = FALSE]
@@ -49,7 +49,11 @@ model_data <- rbind(
              sample_type = "background", presence = 0,
              x = bxy[,1], y = bxy[,2], b))
 write.csv(model_data, out("model_data.csv"), row.names = FALSE)
+
+# Print number of occurrences and backgroun points
 cat("Occurrences:", nrow(x), " Background:", nrow(b), "\n")
+
+# Print correlation of predictor variables
 print(cor(model_data[, names(env_m)]))
 
 # 0 means background
