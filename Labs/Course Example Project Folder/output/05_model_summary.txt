@@ -1,0 +1,21 @@
+
+Call:
+glm(formula = presence ~ bio1_c + bio12_mm, family = binomial(), 
+    data = model_data)
+
+Coefficients:
+              Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  4.8028949  0.3468742   13.85   <2e-16 ***
+bio1_c      -0.4408006  0.0231173  -19.07   <2e-16 ***
+bio12_mm     0.0019587  0.0001572   12.46   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1828.7  on 1463  degrees of freedom
+Residual deviance: 1106.7  on 1461  degrees of freedom
+AIC: 1112.7
+
+Number of Fisher Scoring iterations: 5
+
